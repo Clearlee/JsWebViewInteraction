@@ -1,0 +1,234 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title></title>
+    <script type="text/javascript">
+			//设备系统判断
+			var deviceSytem={
+				checkIosSytem:function() {
+				    var u = navigator.userAgent,
+				    app = navigator.appVersion,
+				    isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+				    return isIOS;
+				},
+				checkWeiXin:function(){
+				    var ua = window.navigator.userAgent.toLowerCase();
+				    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+				        return true;
+				    }else{
+				        return false;
+				    }
+				}
+			};
+
+             function goWebpage(type){
+             	if(deviceSytem.checkIosSytem()){
+             		window.webkit.messageHandlers.goWebpage.postMessage({
+             			"url":"http://app.cleair31.com/keyier/find.html",
+             			"goType":type,
+             			"jsCallback":"jsCallback"
+             		});
+             	}else{
+                	TIO.goWebpage("http://app.cleair31.com/keyier/find.html",type,"jsCallback");
+             	}
+             }
+
+             function goNativePage(){
+
+                var  myselect=document.getElementById("input_native_page");
+                var name = myselect.value;
+
+             	if(deviceSytem.checkIosSytem()){
+             		//ios
+             		window.webkit.messageHandlers.goNativePage.postMessage({
+             			"pageClassName":name,
+             			"paramStr":"",
+             			"jsCallback":"jsCallback"
+             		});
+             	}else{
+                	TIO.goNativePage(name, "", "jsCallback");
+             	}
+
+             }
+
+             function jsCallback(code, msg){
+                switch(code){
+                case 0:
+                    alert(msg);
+                break;
+                case -1:
+                    alert(msg);
+                break;
+                }
+             }
+
+             function callPhone(){
+             	if(deviceSytem.checkIosSytem()){
+             		window.webkit.messageHandlers.callPhone.postMessage({
+             			"phoneNum":"1008611",
+             			"jsCallback":"jsCallback"
+             		});
+             	}else{
+                 TIO.callPhone("1008611", "jsCallback");
+             	}
+             }
+
+             function uploadSelectedImg(){
+             	if(deviceSytem.checkIosSytem()){
+             		window.webkit.messageHandlers.uploadSelectedImg.postMessage({
+             			"jsCallback":"jsCallback"
+             		});
+             	}else{
+                TIO.uploadSelectedImg("jsCallback");
+             	}
+             }
+
+             function ToPlayVideo(){
+             	if(deviceSytem.checkIosSytem()){
+             		window.webkit.messageHandlers.uploadSelectedImg.postMessage({
+             		    "name":"测试视频",
+             		    "url":"http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4",
+             			"jsCallback":"jsCallback"
+             		});
+             	}else{
+                TIO.ToPlayVideo("测试视频", "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4","jsCallback");
+             	}
+             }
+
+             function share(){
+             	if(deviceSytem.checkIosSytem()){
+             		window.webkit.messageHandlers.share.postMessage({
+             		    "shareType":0,
+             		    "title":"分享标题",
+             		    "text":"分享内容",
+             		    "url":"http://www.baidu.com",
+             		    "coverUrl":"http://www.baidu.com",
+             		    "jsCallback":"jsCallback"
+             		});
+             	}else{
+                TIO.share(0, "分享标题", "分享内容", "http://www.baidu.com", "http://www.baidu.com", "jsCallback");
+             	}
+             }
+
+             function locate(){
+             	if(deviceSytem.checkIosSytem()){
+             		window.webkit.messageHandlers.locate.postMessage({
+             		    "type":1,
+             		    "openGps":true,
+             		    "coortype":"bd09ll",
+             		    "scanspan":10*1000,
+             		    "needAddr":true,
+             		    "jsCallback":"jsCallback"
+             		});
+             	}else{
+                TIO.locate(1, true, "bd09ll", 10*1000, true, "jsCallback");
+             	}
+             }
+
+             function openMapNavi(){
+             	 if(deviceSytem.checkIosSytem()){
+             	 	window.webkit.messageHandlers.locate.postMessage({
+             	 	    "type":0,
+             	 	    "lng":"104.072483",
+             	 	    "lat":"30.663204",
+             	 	    "dest":"天府广场",
+             	 	    "jsCallback":"jsCallback"
+             	 	});
+             	 }else{
+                TIO.openMapNavi(0, "104.072483", "30.663204", "天府广场", "jsCallback");
+             	 }
+             }
+
+             function payment(){
+             	 if(deviceSytem.checkIosSytem()){
+             	 	window.webkit.messageHandlers.payment.postMessage({
+             	 	    "payType":1,
+             	 	    "payStr":"123456789",
+             	 	    "jsCallback":"jsCallback"
+             	 	});
+             	 }else{
+                TIO.payment(1, "123456789", "jsCallback");
+             	 }
+             }
+
+    </script>
+    <style>
+    	*{ margin: 0; padding: 0;}
+    	body{ line-height: 2;}
+    	input[type="button"]{ margin-right: 5px; margin-bottom: 5px; border: 1px solid #dcdcdc; background: #f5f5f5; padding: 10px; border-radius: 4px;}
+    	input[type="text"]{ border: 1px solid #dcdcdc; background: #fff; padding: 10px; min-width: 300px; margin-right: 5px; margin-bottom: 5px;}
+    	.group{ padding: 20px; border-bottom:1px solid #dcdcdc;}
+    	h3{ margin-bottom: 20px; font-size: 16px;}
+
+    </style>
+</head>
+<body>
+<div class="group">
+    <h3>跳转功能</h3>
+    <div>
+        <input type="button" onclick="goWebpage(0)" value="从系统浏览器打开网页"/>
+        <p></p>
+        <input type="button" onclick="goWebpage(1)" value="从当前页打开网页"/>
+        <p></p>
+        <input type="button" onclick="goWebpage(2)" value="从新页面打开网页"/>
+    </div>
+</div>
+<div class="group">
+    <h3>跳转原生界面</h3>
+    <div>
+        <input id="input_native_page" type="text" value="com.clearlee.JsWebViewInteraction.TestActivity1">
+        <input type="button" onclick="goNativePage()" value="打开指定名字的原生界面"/>
+    </div>
+</div>
+<div class="group">
+    <h3>打电话</h3>
+    <div>
+        <input type="button" onclick="callPhone()" value="打电话"/>
+    </div>
+</div>
+
+<div class="group">
+    <h3>选择图片并上传</h3>
+    <div>
+        <input type="button" onclick="uploadSelectedImg()" value="选择图片并上传"/>
+    </div>
+</div>
+
+<div class="group">
+    <h3>原生播放视频</h3>
+    <div>
+        <input type="button" onclick="ToPlayVideo()" value="原生播放视频"/>
+    </div>
+</div>
+
+<div class="group">
+    <h3>分享</h3>
+    <div>
+        <input type="button" onclick="share()" value="分享"/>
+    </div>
+</div>
+
+<div class="group">
+    <h3>支付</h3>
+    <div>
+        <input type="button" onclick="payment()" value="支付"/>
+    </div>
+</div>
+
+<div class="group">
+    <h3>定位</h3>
+    <div>
+        <input type="button" onclick="locate()" value="定位"/>
+    </div>
+</div>
+
+<div class="group">
+    <h3>打开第3方地图导航</h3>
+    <div>
+        <input type="button" onclick="openMapNavi()" value="打开第3方地图导航"/>
+    </div>
+</div>
+</body>
+</html>

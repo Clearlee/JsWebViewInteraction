@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title></title>
+    <script type="text/javascript">
+
+             function goback(){
+                var  backindex=document.getElementById("backindex");
+                var index = backindex.value;
+                switch(index){
+                    case "0":
+                                    TIO.goBack(0, "jsCallback");
+
+                    break;
+                    case "1":
+                                    TIO.goBack(1, "jsCallback");
+
+                    break;
+                    case "2":
+                                    TIO.goBack(2, "jsCallback");
+
+                    break;
+                    case "3":
+                                    TIO.goBack(3, "jsCallback");
+
+                    break;
+                }
+             }
+
+
+             function jsCallback(code, msg){
+                switch(code){
+                case 0:
+                    alert(msg);
+                break;
+                case -1:
+                    alert(msg);
+                break;
+                }
+             }
+    </script>
+</head>
+<body>
+</br>
+返回功能（输入0,返回到主页，输入1返回上一页，输入2返回上上页。以此类推）：</br>
+<input id="backindex" type="text" value="1">
+<input type="button" onclick="goback()" value="返回页面"/>
+</body>
+</html>
